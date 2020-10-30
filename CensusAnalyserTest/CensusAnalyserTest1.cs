@@ -11,12 +11,12 @@ namespace CensusAnalyserTest
 {
     public class CensusAnalyserTest1
     {
-        static string indianStateCensusHeaders = "State,Population,AreaInSqKm,DensityPerSqKm";
-        static string indianStateCensusFilePath = @"C:\Users\Shreya\source\repos\CensusAnalyserTest\CSVFiles\IndiaStateCensusData.csv";
-        static string indianStateWrongFilePath = @"WrongIndiaStateCensusData.csv";
-        static string indianStateWrongTypeFilePath = @"C:\Users\Shreya\source\repos\CensusAnalyserTest\CSVFiles\IndiaStateCensusData.txt";
-        static string indianStateIncorrectDelimiterFilePath = @"C:\Users\Shreya\source\repos\CensusAnalyserTest\CSVFiles\DelimiterIndiaStateCensusData.csv";
-        static string indianStateIncorrectHeaderFilePath = @"C:\Users\Shreya\source\repos\CensusAnalyserTest\CSVFiles\WrongIndiaStateCensusData.csv";
+        static  string indianStateCodeHeaders = "SrNo,State Name,TIN,StateCode";
+        static  string indianStateCodeFilePath = @"C:\Users\Shreya\source\repos\CensusAnalyserTest\CSVFiles\IndiaStateCode.csv";
+        static  string indianStateWrongFilePath = @"WrongIndiaStateCodeData.csv";
+        static  string indianStateWrongTypeFilePath = @"C:\Users\Shreya\source\repos\CensusAnalyserTest\CSVFiles\IndiaStateCode.txt";
+        static  string indianStateIncorrectDelimiterFilePath = @"C:\Users\Shreya\source\repos\CensusAnalyserTest\CSVFiles\DelimiterIndiaStateCode.csv";
+        static  string indianStateIncorrectHeaderFilePath = @"C:\Users\Shreya\source\repos\CensusAnalyserTest\CSVFiles\WrongIndiaStateCode.csv";
         CensusAnalyserLive.DTO.CensusAnalyser censusAnalyser;
         Dictionary<string, CensusDTO> totalRecord;
         Dictionary<string, CensusDTO> stateRecord;
@@ -32,15 +32,15 @@ namespace CensusAnalyserTest
         [Test]
         public void GivenIndianCensusDataFile_WhenReaded_ShouldReturnCensusDataCount()
         {
-            totalRecord = censusAnalyser.LoadCensusData(Country.INDIA, indianStateCensusFilePath, indianStateCensusHeaders);
-            Assert.AreEqual(29, totalRecord.Count);
+            stateRecord = censusAnalyser.LoadCensusData(Country.INDIA, indianStateCodeFilePath, indianStateCodeHeaders);
+            Assert.AreEqual(37, stateRecord.Count);
         }
         [Test]
         public void GivenIndianCensusDataFile_IfIncorret_ShouldThrowCustomException()
         {
             try
             {
-                totalRecord = censusAnalyser.LoadCensusData(Country.INDIA, indianStateWrongFilePath, indianStateCensusHeaders);
+                stateRecord = censusAnalyser.LoadCensusData(Country.INDIA, indianStateWrongFilePath, indianStateCodeHeaders);
             }
             catch (CensusAnalyserException e)
             {
@@ -52,7 +52,7 @@ namespace CensusAnalyserTest
         {
             try
             {
-                totalRecord = censusAnalyser.LoadCensusData(Country.INDIA, indianStateWrongTypeFilePath, indianStateCensusHeaders);
+                stateRecord = censusAnalyser.LoadCensusData(Country.INDIA, indianStateWrongTypeFilePath, indianStateCodeHeaders);
             }
             catch (CensusAnalyserException e)
             {
@@ -64,7 +64,7 @@ namespace CensusAnalyserTest
         {
             try
             {
-                totalRecord = censusAnalyser.LoadCensusData(Country.INDIA, indianStateIncorrectDelimiterFilePath, indianStateCensusHeaders);
+                stateRecord = censusAnalyser.LoadCensusData(Country.INDIA, indianStateIncorrectDelimiterFilePath, indianStateCodeHeaders);
             }
             catch (CensusAnalyserException e)
             {
@@ -76,13 +76,12 @@ namespace CensusAnalyserTest
         {
             try
             {
-                totalRecord = censusAnalyser.LoadCensusData(Country.INDIA, indianStateIncorrectHeaderFilePath, indianStateCensusHeaders);
+                stateRecord = censusAnalyser.LoadCensusData(Country.INDIA, indianStateIncorrectHeaderFilePath, indianStateCodeHeaders);
             }
             catch (CensusAnalyserException e)
             {
                 Assert.AreEqual("Incorrect header in Data", e.Message);
             }
         }
-
     }
 }
